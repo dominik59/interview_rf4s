@@ -10,6 +10,7 @@
 0. Run ./scripts/api_jwt_regenerate_keys.sh
 0. Run ./scripts/start_dev_environment.sh
 0. Run ./scripts/api_symfony_run_command.sh doctrine:migrations:migrate and confirm with y
+0. Run ./scripts/api_symfony_run_command.sh doctrine:fixtures:load and confirm with y
 0. Application is available at http://localhost
 
 ## Available helpers
