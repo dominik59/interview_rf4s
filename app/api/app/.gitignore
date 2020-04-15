@@ -138,3 +138,6 @@ fabric.properties
 /build/
 
 # End of https://www.gitignore.io/api/linux,phpunit,composer,phpstorm
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###
