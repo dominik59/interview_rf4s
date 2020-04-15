@@ -1,0 +1,50 @@
+version: "3.3"
+services:
+  main_nginx:
+    build: ./.docker/main_nginx
+    ports:
+      - "80:80"
+    networks:
+      - nginx_network
+    volumes:
+      - ./.docker/main_nginx/templates/interview_rf4s.conf:/etc/nginx/conf.d/interview_rf4s.conf
+      - ./app/api/app/public:/var/www/public
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+
+  api:
+    build: .docker/api/dev
+    user: "${UID}:${GID}"
+    extra_hosts:
+      - "host.docker.internal:172.17.0.1"
+    environment:
+      - APP_DEBUG=1
+    expose:
+      - "9000"
+    networks:
+      - nginx_network
+      - db_network
+    volumes:
+      - ./app/api/app:/var/www/public
+      - ./app/api/app/vendor:/var/www/public/vendor:cached
+      - ./app/api/app/var:/var/www/public/var:cached
+
+  postgres_db:
+    image: postgres:11
+    ports:
+      - 0.0.0.0:5433:5432
+    restart: unless-stopped
+    environment:
+      POSTGRES_PASSWORD: $up3rH@r0P@22w0r0
+      POSTGRES_USER: root
+      POSTGRES_DB: interview
+    networks:
+      - db_network
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+
+networks:
+  nginx_network:
+  db_network:
+
+volumes:
+  postgres_db:
