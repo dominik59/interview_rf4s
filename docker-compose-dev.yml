@@ -34,7 +34,7 @@ services:
       - 0.0.0.0:5433:5432
     restart: unless-stopped
     environment:
-      POSTGRES_PASSWORD: $up3rH@r0P@22w0r0
+      POSTGRES_PASSWORD: Sup3rHar0Pa22w0r0
       POSTGRES_USER: root
       POSTGRES_DB: interview
     networks:
