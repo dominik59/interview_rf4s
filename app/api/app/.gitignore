@@ -1,4 +1,14 @@
 
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+###< symfony/framework-bundle ###
+
+
 # Created by https://www.gitignore.io/api/linux,phpunit,composer,phpstorm
 # Edit at https://www.gitignore.io/?templates=linux,phpunit,composer,phpstorm
 
