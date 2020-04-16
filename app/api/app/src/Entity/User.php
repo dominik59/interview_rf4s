@@ -3,6 +3,9 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\SerializedName;
@@ -47,6 +50,17 @@ class User implements UserInterface
      * @Assert\Length(min="8")
      */
     private ?string $plainPassword;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\HairdresserStandReservation", mappedBy="user", orphanRemoval=true)
+     * @ApiSubresource()
+     */
+    private $hairdresserStandReservations;
+
+    public function __construct()
+    {
+        $this->hairdresserStandReservations = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -105,6 +119,37 @@ class User implements UserInterface
     public function setPlainPassword(string $plainPassword): User
     {
         $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    /**
+     * @return Collection|HairdresserStandReservation[]
+     */
+    public function getHairdresserStandReservations(): Collection
+    {
+        return $this->hairdresserStandReservations;
+    }
+
+    public function addHairdresserStandReservation(HairdresserStandReservation $hairdresserStandReservation): self
+    {
+        if (!$this->hairdresserStandReservations->contains($hairdresserStandReservation)) {
+            $this->hairdresserStandReservations[] = $hairdresserStandReservation;
+            $hairdresserStandReservation->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHairdresserStandReservation(HairdresserStandReservation $hairdresserStandReservation): self
+    {
+        if ($this->hairdresserStandReservations->contains($hairdresserStandReservation)) {
+            $this->hairdresserStandReservations->removeElement($hairdresserStandReservation);
+            // set the owning side to null (unless already changed)
+            if ($hairdresserStandReservation->getUser() === $this) {
+                $hairdresserStandReservation->setUser(null);
+            }
+        }
+
         return $this;
     }
 }

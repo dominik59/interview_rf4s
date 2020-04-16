@@ -20,3 +20,11 @@
 * ./scripts/initial_build_docker_images.sh - build required images for composer purposes
 * ./scripts/api_jwt_regenerate_keys.sh - regenerate jwt keys
 * ./scripts/start_dev_environment.sh - starts environment
+
+## How to tune
+At ./app/api/app/.env you have got two environmental variables:
+* OPENING_START_HOUR - Hairdresser opening start hour
+* OPENING_END_HOUR - Hairdresser opening end hour
+
+With these two variables you can dynamically tune opening 
+hours.
