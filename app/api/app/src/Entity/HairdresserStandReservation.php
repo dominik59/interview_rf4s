@@ -11,7 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ApiResource(
- *     collectionOperations={"post"},
+ *     collectionOperations={"get","post"},
  *     itemOperations={"get"},
  *     normalizationContext={"groups"={"layout:read"}},
  *     denormalizationContext={"groups"={"layout:write"}},

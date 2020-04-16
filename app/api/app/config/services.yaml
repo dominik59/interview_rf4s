@@ -34,3 +34,8 @@ services:
     App\Denormalizer\HairdresserStandReservationDenormalizer:
         decorates: 'api_platform.jsonld.normalizer.item'
         arguments: [ '@App\Denormalizer\HairdresserStandReservationDenormalizer.inner' ]
+
+    App\Doctrine\HairdresserStandReservationExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.item }
