@@ -5,7 +5,6 @@ namespace App\Voter;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserVoter extends Voter
 {
@@ -18,17 +17,17 @@ class UserVoter extends Voter
     {
         $user = $token->getUser();
 
-        $isPermissionGranted = false;
-        if ($user instanceof UserInterface) {
-            switch ($attribute) {
-                case 'VIEW':
-                    if ($subject === $user) {
-                        $isPermissionGranted = true;
-                    } else {
-                        $isPermissionGranted = false;
-                    }
-                    break;
-            }
+        switch ($attribute) {
+            case 'VIEW':
+                if ($subject === $user) {
+                    $isPermissionGranted = true;
+                } else {
+                    $isPermissionGranted = false;
+                }
+                break;
+            default:
+                $isPermissionGranted = false;
+                break;
         }
 
         return $isPermissionGranted;

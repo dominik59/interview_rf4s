@@ -36,6 +36,7 @@ class HairdresserStandReservation
      * @Assert\NotBlank()
      */
     public $start_hour;
+
     /**
      * @ORM\Column(type="time")
      * @Groups({"layout:read", "layout:write"})
@@ -53,6 +54,7 @@ class HairdresserStandReservation
      * @Assert\NotBlank()
      */
     public $end_hour;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -60,6 +62,7 @@ class HairdresserStandReservation
      * @ORM\Column(type="integer")
      */
     private $id;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\HairdresserStand", inversedBy="hairdresserStandReservations")
      * @Groups({"layout:read", "layout:write"})
@@ -67,12 +70,14 @@ class HairdresserStandReservation
      * @Assert\NotBlank()
      */
     private $hairdresserStand;
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="hairdresserStandReservations")
      * @Groups({"layout:read"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
     /**
      * @ORM\Column(type="date")
      * @Groups({"layout:read", "layout:write"})

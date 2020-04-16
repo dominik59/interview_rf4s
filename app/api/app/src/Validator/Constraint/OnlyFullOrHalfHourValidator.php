@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Validator\Constraint;
-
 
 use Carbon\CarbonImmutable;
 use DateTime;

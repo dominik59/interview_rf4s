@@ -57,9 +57,6 @@ class HairdresserStand
         return $this;
     }
 
-    /**
-     * @return Collection|HairdresserStandReservation[]
-     */
     public function getHairdresserStandReservations(): Collection
     {
         return $this->hairdresserStandReservations;

@@ -14,9 +14,6 @@ class HairdresserStandReservationDenormalizer implements NormalizerInterface, De
 {
     use SerializerAwareTrait;
 
-    /**
-     * @var DenormalizerInterface
-     */
     private DenormalizerInterface $decoratedNormalizer;
 
     public function __construct(NormalizerInterface $normalizer)

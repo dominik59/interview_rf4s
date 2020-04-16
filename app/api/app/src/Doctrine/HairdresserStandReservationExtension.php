@@ -11,9 +11,6 @@ use Symfony\Component\Security\Core\Security;
 
 class HairdresserStandReservationExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
-    /**
-     * @var Security
-     */
     private Security $security;
 
     public function __construct(Security $security)
@@ -21,7 +18,24 @@ class HairdresserStandReservationExtension implements QueryCollectionExtensionIn
         $this->security = $security;
     }
 
-    public function applyToCollection(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, string $operationName = null)
+    public function applyToCollection(
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        string $operationName = null
+    )
+    {
+        $this->addWhere($queryBuilder, $resourceClass);
+    }
+
+    public function applyToItem(
+        QueryBuilder $queryBuilder,
+        QueryNameGeneratorInterface $queryNameGenerator,
+        string $resourceClass,
+        array $identifiers,
+        string $operationName = null,
+        array $context = []
+    )
     {
         $this->addWhere($queryBuilder, $resourceClass);
     }
@@ -37,10 +51,5 @@ class HairdresserStandReservationExtension implements QueryCollectionExtensionIn
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.user = :current_user', $rootAlias));
         $queryBuilder->setParameter('current_user', $loggedInUser);
-    }
-
-    public function applyToItem(QueryBuilder $queryBuilder, QueryNameGeneratorInterface $queryNameGenerator, string $resourceClass, array $identifiers, string $operationName = null, array $context = [])
-    {
-        $this->addWhere($queryBuilder, $resourceClass);
     }
 }

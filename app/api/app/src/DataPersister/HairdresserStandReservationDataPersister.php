@@ -2,20 +2,14 @@
 
 namespace App\DataPersister;
 
-use ApiPlatform\Core\DataPersister\ContextAwareDataPersisterInterface;
+use ApiPlatform\Core\DataPersister\DataPersisterInterface;
 use App\Entity\HairdresserStandReservation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class HairdresserStandReservationDataPersister implements ContextAwareDataPersisterInterface
+class HairdresserStandReservationDataPersister implements DataPersisterInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
     private TokenStorageInterface $tokenStorage;
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $entityManager;
 
     public function __construct(
@@ -27,15 +21,12 @@ class HairdresserStandReservationDataPersister implements ContextAwareDataPersis
         $this->entityManager = $entityManager;
     }
 
-    public function supports($data, array $context = []): bool
+    public function supports($object): bool
     {
-        return $data instanceof HairdresserStandReservation;
+        return $object instanceof HairdresserStandReservation;
     }
 
-    /**
-     * @param HairdresserStandReservation $hairdresserStandReservation
-     */
-    public function persist($hairdresserStandReservation, array $context = [])
+    public function persist($hairdresserStandReservation)
     {
         $loggedInUser = $this->tokenStorage->getToken()->getUser();
         $hairdresserStandReservation->setUser($loggedInUser);
@@ -44,7 +35,7 @@ class HairdresserStandReservationDataPersister implements ContextAwareDataPersis
         $this->entityManager->flush();
     }
 
-    public function remove($hairdresserStandReservation, array $context = [])
+    public function remove($hairdresserStandReservation)
     {
         $this->entityManager->remove($hairdresserStandReservation);
         $this->entityManager->flush();
